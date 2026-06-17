@@ -1,0 +1,89 @@
+{
+  "name": "example-nextjs-otel",
+  "version": "1.0.0",
+  "description": "Example Next.js app with OpenTelemetry custom metrics and Grafana OTel LGTM integration.",
+  "type": "module",
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "26.3.0",
+      "onFail": "download"
+    },
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.7.0",
+      "onFail": "download"
+    }
+  },
+  "scripts": {
+    "start": "node .next/standalone/server.js",
+    "dev": "wireit",
+    "dev:next": "wireit",
+    "dev:collector": "wireit",
+    "dev:down": "docker compose down",
+    "lgtm:logs": "docker compose logs -f otel-lgtm",
+    "build": "next build",
+    "typecheck": "tsc --noEmit",
+    "fmt": "oxfmt --check .",
+    "fmt:fix": "oxfmt --write .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint . --fix",
+    "test": "echo \"No test suite configured yet\""
+  },
+  "wireit": {
+    "dev": {
+      "command": "node -e \"console.log('Development services are running. Press Ctrl-C to stop.'); setInterval(() => {}, 2147483647)\"",
+      "dependencies": [
+        "dev:collector",
+        "dev:next"
+      ],
+      "service": true,
+      "files": []
+    },
+    "dev:next": {
+      "command": "next dev",
+      "service": {
+        "readyWhen": {
+          "lineMatches": "Ready"
+        }
+      },
+      "files": [
+        "src/**/*"
+      ]
+    },
+    "dev:collector": {
+      "command": "docker compose up otel-lgtm otel-collector",
+      "service": {
+        "readyWhen": {
+          "lineMatches": "Everything is ready|service telemetry started|Starting otelcol-contrib|The OpenTelemetry collector and the Grafana LGTM stack are up and running"
+        }
+      },
+      "files": [
+        "compose.yaml",
+        "otel-collector-config.yaml"
+      ]
+    }
+  },
+  "dependencies": {
+    "@opentelemetry/api": "catalog:",
+    "@opentelemetry/exporter-metrics-otlp-http": "catalog:",
+    "@opentelemetry/exporter-trace-otlp-http": "catalog:",
+    "@opentelemetry/resources": "catalog:",
+    "@opentelemetry/sdk-metrics": "catalog:",
+    "@opentelemetry/sdk-node": "catalog:",
+    "@opentelemetry/sdk-trace-node": "catalog:",
+    "@opentelemetry/semantic-conventions": "catalog:",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "typescript": "catalog:",
+    "wireit": "catalog:"
+  }
+}

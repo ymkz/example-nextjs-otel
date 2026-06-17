@@ -1,0 +1,11 @@
+.next/
+coverage/
+dist/
+node_modules/
+.wireit/
+.wrangler/
+.env*
+!.env.example
+.DS_Store
+next-env.d.ts
+tsconfig.tsbuildinfo

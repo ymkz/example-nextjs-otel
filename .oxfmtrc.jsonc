@@ -1,0 +1,7 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "ignorePatterns": [".next/**", "node_modules/**", "coverage/**", "dist/**", "pnpm-lock.yaml"],
+  "printWidth": 120,
+  "sortImports": true,
+  "sortPackageJson": false,
+}

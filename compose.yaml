@@ -1,0 +1,33 @@
+services:
+  app:
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+      OTEL_SERVICE_NAME: example-nextjs-otel
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4318
+      OTEL_METRIC_EXPORT_INTERVAL_MS: "10000"
+      NEXT_OTEL_VERBOSE: "1"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - otel-collector
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.133.0
+    command:
+      - --config=/etc/otelcol/config.yaml
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otelcol/config.yaml:ro
+    ports:
+      - "14317:4317"
+      - "14318:4318"
+    depends_on:
+      - otel-lgtm
+
+  otel-lgtm:
+    image: grafana/otel-lgtm:0.28.0
+    ports:
+      - "3001:3000"
+      - "4317:4317"
+      - "4318:4318"
