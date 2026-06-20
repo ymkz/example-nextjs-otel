@@ -14,11 +14,11 @@ declare global {
   var __otelSdkStarted: boolean | undefined;
 }
 
-const serviceName = process.env.OTEL_SERVICE_NAME ?? "example-nextjs-otel";
-const serviceVersion = process.env.npm_package_version ?? "0.0.0";
+const serviceName = process.env["OTEL_SERVICE_NAME"] ?? "example-nextjs-otel";
+const serviceVersion = process.env["npm_package_version"] ?? "0.0.0";
 const deploymentEnvironment = process.env.NODE_ENV ?? "development";
-const otlpEndpoint = process.env.OTEL_EXPORTER_OTLP_ENDPOINT ?? "http://localhost:4318";
-const metricExportIntervalMillis = Number(process.env.OTEL_METRIC_EXPORT_INTERVAL_MS ?? 10000);
+const otlpEndpoint = process.env["OTEL_EXPORTER_OTLP_ENDPOINT"] ?? "http://localhost:4318";
+const metricExportIntervalMillis = Number(process.env["OTEL_METRIC_EXPORT_INTERVAL_MS"] ?? 10000);
 
 if (!globalThis.__otelSdkStarted) {
   const traceExporter = new OTLPTraceExporter({

@@ -19,5 +19,5 @@ catalog:
   oxlint: 1.70.0
   react: 19.2.7
   react-dom: 19.2.7
-  typescript: 5.9.3
+  typescript: 6.0.3
   wireit: 0.14.12
