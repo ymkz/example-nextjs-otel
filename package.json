@@ -28,7 +28,8 @@
     "fmt:fix": "oxfmt --write .",
     "lint": "oxlint .",
     "lint:fix": "oxlint . --fix",
-    "test": "echo \"No test suite configured yet\""
+    "test": "echo \"No test suite configured yet\"",
+    "update": "pnpm update --latest --recursive --workspace-root"
   },
   "wireit": {
     "dev": {
