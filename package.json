@@ -29,7 +29,7 @@
     "lint": "oxlint .",
     "lint:fix": "oxlint . --fix",
     "test": "echo \"No test suite configured yet\"",
-    "update": "pnpm update --latest --recursive --workspace-root"
+    "update": "pnpm update --latest --interactive --recursive --workspace-root"
   },
   "wireit": {
     "dev": {
